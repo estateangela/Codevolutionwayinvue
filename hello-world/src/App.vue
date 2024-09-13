@@ -1,5 +1,7 @@
 <template>
   <div>
+    <!-- for basic UI -->
+
     <div>{{ greet }} {{ name }}</div>
     <div v-html="channel"></div>
     <div v-html="hack"></div>
@@ -20,16 +22,69 @@
   
   <div  :style="[baseStyleObject, successStyleObject]">success style</div>
   <div  :style="[baseStyleObject, dangerStyleObject]">danger style</div>
-  </div>
+  
+  <!-- for v-if and v-else -->
+
+  <h2 v-if="num === 0">num is zero</h2>
+  <h2 v-else-if="num > 0">num is positive</h2>
+  <h2 v-else-if='num < 0'>num is negative</h2>
+  <h2 v-else>not a number</h2>
+  <template v-if="display">
+    <h2>Hello World</h2>
+    <p>This is a paragraph</p>
+  </template>
+  <h2 v-show="showelement">using v-show</h2>
+
+  <!-- for v-for -->
+   <h2 v-for="(name, index) in names" :key="name"> {{ index }} {{ name }}</h2>
+   <h2 v-for="(name, index) in fullNames" :key="name"> {{ index }} {{ name.first }} {{ name.last }}</h2>
+   <div v-for="actor in actors" :key="actor">
+    <h2>{{ actor.name }}</h2>
+    <h3 v-for="movie in actor.movies" :key="movie"> {{ movie }}</h3>
+   </div>
+   <!-- for shuffle -->
+    <template v-for="name in names">
+    <div :key="name">
+      <h2>{{ name }}</h2>
+      <input placeholder="Last name" />
+      <hr />
+    </div>
+    </template>
+    <button @click="shuffle">Shuffle!</button>
+</div>
+  
 </template>
 
 <script>
 
-
+import _ from 'lodash';
 export default {
   name: 'App',
   data() {
     return {
+      // for v-for
+      names: ['John', 'Jane', 'Doe', 'Smith'],
+      fullNames: [
+        {first: 'John', last: 'Wayne'},
+        {first: 'Jane', last: 'Eyre'},
+        {first: 'Doe', last: 'Lopez'},
+        {first: 'Smith', last: 'Johnson'},
+      ],
+      actors: [
+        {
+          name: 'Christian Bale',
+          movies: ['Batman', 'The Dark Knight', 'The Dark Knight Rises'],
+        },
+        {
+          name: 'Leonardo DiCaprio',
+          movies: ['Titanic', 'Inception', 'The Wolf of Wall Street'],
+        },
+      ],
+      // for v-if and v-else
+      display: true,
+      num:5,
+      showelement: true,
+      // for basic UI
       greet: 'Hello',
       name: "Vishwas",
       channel: "<b>Codevolution</b>",
@@ -63,6 +118,12 @@ export default {
       },
     }
   },
+  methods: {
+    shuffle() {
+      console.log(this.names);
+      this.names=_.shuffle(this.names);
+    }
+  }
 
 }
 </script>
