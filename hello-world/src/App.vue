@@ -1,5 +1,10 @@
 <template>
   <div id="app">
+    <!--for v-on-->
+    <h2>{{ name }}</h2>
+    <div>
+    <button v-on:click="name='John'">Change Name</button>
+    </div>
      <!-- for shuffle -->
      <template v-for="name in names">
     <div :key="name">
