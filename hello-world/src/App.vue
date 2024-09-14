@@ -1,7 +1,19 @@
 <template>
-  <div>
-    <!-- for basic UI -->
+  <div id="app">
+     <!-- for shuffle -->
+     <template v-for="name in names">
+    <div :key="name">
+      <h2>{{ name }}</h2>
+      <input placeholder="Last name" />
+      <hr />
+    </div>
+    </template>
+    <button @click="shuffle">Shuffle!</button>
 
+    <!-- for add method -->
+    <h2>Add method - {{  add(2,3,5) }}</h2>
+
+    <!-- for basic UI -->
     <div>{{ greet }} {{ name }}</div>
     <div v-html="channel"></div>
     <div v-html="hack"></div>
@@ -42,16 +54,10 @@
     <h2>{{ actor.name }}</h2>
     <h3 v-for="movie in actor.movies" :key="movie"> {{ movie }}</h3>
    </div>
-   <!-- for shuffle -->
-    <template v-for="name in names">
-    <div :key="name">
-      <h2>{{ name }}</h2>
-      <input placeholder="Last name" />
-      <hr />
-    </div>
-    </template>
-    <button @click="shuffle">Shuffle!</button>
+  
 </div>
+
+
   
 </template>
 
@@ -60,6 +66,11 @@
 import _ from 'lodash';
 export default {
   name: 'App',
+  // methods
+  methods: {
+      add(a , b , c) {
+        return a + b + c
+      },
   data() {
     return {
       // for v-for
@@ -124,6 +135,7 @@ export default {
       this.names=_.shuffle(this.names);
     }
   }
+}
 
 }
 </script>
